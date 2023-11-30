@@ -2,6 +2,8 @@ import "./App.css";
 import { apiClient } from "./ApiClient";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import WordTile from "./components/WordTile";
+import ResultTile from "./components/ResultTile";
 
 function App() {
   const [wordCount, setWordCount] = useState(0);
@@ -14,12 +16,12 @@ function App() {
   const [showTranslation, setShowTranslation] = useState(false);
 
   useEffect(() => {
-    getWordCount();
+    getWordCount(); //Call on the API to get total words in the database.
   }, []);
 
   useEffect(() => {
     if (wordCount !== 0 && previousQueries.length === wordCount + 1) {
-      setShowEnd(true);
+      setShowEnd(true); //when all the words have been cycled through, end message will show
     }
   }, [previousQueries]);
 
@@ -31,50 +33,36 @@ function App() {
     let id = generateRandomId();
     if (wordCount === 0 || id === 0) {
       setShowWord(false);
-      return;
+      return; //on first load wordCount is 0, no need to make an API call
     }
 
-    apiClient.get(`/words/${id}`).then((response) => {
-      // console.log(response.data);
-      setResponseData(response.data);
-      setShowWord(true);
-    });
+    apiClient
+      .get(`/words/${id}`)
+      .then((response) => {
+        // console.log(response.data);
+        setResponseData(response.data);
+        setShowWord(true);
+      })
+      .catch((error) => console.log(error));
 
     setPreviousQueries([...previousQueries, id]);
   }
 
   function getWordCount() {
-    apiClient.get("/wordcount").then((res) => setWordCount(res.data));
+    apiClient
+      .get("/wordcount") //the API will count the number of entries in the DB
+      .then((res) => setWordCount(res.data))
+      .catch((error) => console.log(error));
   }
 
   function generateRandomId() {
-    let randomNumber = Math.floor(Math.random() * wordCount) + 1;
+    let randomNumber = Math.floor(Math.random() * wordCount) + 1; //generate a number between 1 and the number of entries. Should not be zero, hence +1
 
     if (previousQueries.includes(randomNumber)) {
-      randomNumber = generateRandomId();
+      randomNumber = generateRandomId(); //id should be unique to avoid duplicate questions.
     } else {
       return randomNumber;
     }
-
-    return randomNumber;
-  }
-
-  function handleSelection(e) {
-    const selectedArticle = e.target.innerHTML;
-    if (selectedArticle === responseData.article) {
-      setResult(`Correct! ${responseData.article} ${responseData.word}`);
-      setShowNext(true);
-      setShowTranslation(true);
-    } else {
-      setResult("Incorrect. Try again!");
-    }
-  }
-
-  function handleNext() {
-    setShowNext(false);
-    setShowTranslation(false);
-    setResult("");
-    getWordById();
   }
 
   return (
@@ -82,39 +70,25 @@ function App() {
       {!showEnd ? (
         <div>
           {showWord && (
-            <div>
-              <div className="word">{responseData.word}</div>
-              <div>
-                <div className="article-tiles-flex">
-                  <div className="article-tile die" onClick={handleSelection}>
-                    Die
-                  </div>
-                  <div className="article-tile der" onClick={handleSelection}>
-                    Der
-                  </div>
-                  <div className="article-tile das" onClick={handleSelection}>
-                    Das
-                  </div>
-                </div>
-              </div>
-            </div>
+            <WordTile
+              word={responseData.word}
+              article={responseData.article}
+              setResult={setResult}
+              setShowNext={setShowNext}
+              setShowTranslation={setShowTranslation}
+            />
           )}
 
-          {result && (
-            <div className="result-tile">
-              {result}
-              {showTranslation && (
-                <div className="translation">
-                  Translation: {responseData.translation}
-                </div>
-              )}
-            </div>
-          )}
-          {showNext && (
-            <button className="next-button" onClick={handleNext}>
-              Next Word
-            </button>
-          )}
+          <ResultTile
+            result={result}
+            showTranslation={showTranslation}
+            setShowTranslation={setShowTranslation}
+            translation={responseData?.translation}
+            showNext={showNext}
+            setShowNext={setShowNext}
+            setResult={setResult}
+            getWordById={getWordById}
+          />
         </div>
       ) : (
         <div>
