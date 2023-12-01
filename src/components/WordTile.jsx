@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 export default function WordTile({
   word,
   article,
@@ -25,15 +23,15 @@ export default function WordTile({
       <div className="word">{word}</div>
       <div>
         <div className="article-tiles-flex">
-          <div className="article-tile die" onClick={handleSelection}>
+          <button className="article-tile die" onClick={handleSelection}>
             Die
-          </div>
-          <div className="article-tile der" onClick={handleSelection}>
+          </button>
+          <button className="article-tile der" onClick={handleSelection}>
             Der
-          </div>
-          <div className="article-tile das" onClick={handleSelection}>
+          </button>
+          <button className="article-tile das" onClick={handleSelection}>
             Das
-          </div>
+          </button>
         </div>
       </div>
     </div>

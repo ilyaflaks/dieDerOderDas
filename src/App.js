@@ -1,6 +1,5 @@
 import "./App.css";
 import { apiClient } from "./ApiClient";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import WordTile from "./components/WordTile";
 import ResultTile from "./components/ResultTile";
@@ -26,15 +25,13 @@ function App() {
   }, [previousQueries]);
 
   useEffect(() => {
-    getWordById();
+    if (wordCount !== 0) {
+      getWordById();
+    }
   }, [wordCount]);
 
   function getWordById() {
     let id = generateRandomId();
-    if (wordCount === 0 || id === 0) {
-      setShowWord(false);
-      return; //on first load wordCount is 0, no need to make an API call
-    }
 
     apiClient
       .get(`/words/${id}`)
@@ -56,13 +53,12 @@ function App() {
   }
 
   function generateRandomId() {
-    let randomNumber = Math.floor(Math.random() * wordCount) + 1; //generate a number between 1 and the number of entries. Should not be zero, hence +1
+    let randomNumber;
 
-    if (previousQueries.includes(randomNumber)) {
-      randomNumber = generateRandomId(); //id should be unique to avoid duplicate questions.
-    } else {
-      return randomNumber;
-    }
+    do {
+      randomNumber = Math.floor(Math.random() * wordCount) + 1;
+    } while (previousQueries.includes(randomNumber));
+    return randomNumber;
   }
 
   return (
