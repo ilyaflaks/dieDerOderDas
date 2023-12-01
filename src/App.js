@@ -50,7 +50,7 @@ function App() {
 
   function getWordCount() {
     apiClient
-      .get("/wordcount") //the API will count the number of entries in the DB
+      .get(`/wordcount`) //the API will count the number of entries in the DB
       .then((res) => setWordCount(res.data))
       .catch((error) => console.log(error));
   }

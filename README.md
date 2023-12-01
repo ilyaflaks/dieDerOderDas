@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# This is the front end for the Die Der oder Das app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[backend can be found here](https://github.com/ilyaflaks/dieDerOderDasApi/)
+This is the React front end part of the full stack app. To run the app
 
-## Available Scripts
+1. clone this repo to your machine
+2. clone the backend repo to your machine
+3. install Java and Eclipse if you don't have it yet
+4. In Eclipe, go to the top of the screen where it says File -> Import -> Existing Maven Projects -> Browse to where you cloned the repo to -> Click Finish
+5. In Eclipse, open **DieDerOderDasApplication.java**, right click on the code, select Run As -> 1 Java Application
+   It should sayd "Application runing on port 5000" on the Eclipse console
 
-In the project directory, you can run:
+6. In the command line, **cd** to the folder where you cloned this repo. Make sure the folder you are in is the one with the **package.json** file. Run the command **"npm install"**. Wait for the node modules to finish installing. Then run the command **"npm start"**
 
-### `npm start`
+7. Go to [http://localhost:3000](http://localhost:3000) and start playing around with the app.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- The backend is created with Spring Boot 3.2.0, Java 17 and Maven
+- The backend is using an in-memory H2 database. Hopefully, that will save me some $ by not having to pay for an RDS...
 
-### `npm test`
+# DevOps
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project is temporarily deployed to AWS with the [front end on S3](http://diederoderdas.s3-website-us-west-1.amazonaws.com/) and the backend on EC2. If you click on the link and it's not working or if the backend is not responding, that means AWS started charging me more money than I'm willing to spend and I have deleted the app.
 
-### `npm run build`
+# Sources
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT license This project is my idea although it is heavily influenced by the [Master Spring Boot 3 & Spring Framework 6 with Java](https://www.udemy.com/course/spring-boot-and-spring-framework-tutorial-for-beginners) by **in28minutes**.
+Many thanks to ChatGPT for generating a list of 50 beginner German words and converting the list into SQL queries
