@@ -22,7 +22,7 @@ function App() {
     if (wordCount !== 0 && previousQueries.length === wordCount + 1) {
       setShowEnd(true); //when all the words have been cycled through, end message will show
     }
-  }, [previousQueries]);
+  }, [previousQueries, wordCount]);
 
   useEffect(() => {
     if (wordCount !== 0) {
